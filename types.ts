@@ -37,3 +37,8 @@ export interface Color {
     name: string;
     value: string;
 }
+
+export interface OrderItem {
+    product: Product;
+    quantity: number;
+}

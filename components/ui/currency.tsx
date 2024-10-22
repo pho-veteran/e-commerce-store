@@ -13,7 +13,7 @@ interface CurrencyProps {
     className?: string;
 }
 
-const Currency: React.FC<CurrencyProps> = ({ value }) => {
+const Currency: React.FC<CurrencyProps> = ({ value, className }) => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -25,7 +25,7 @@ const Currency: React.FC<CurrencyProps> = ({ value }) => {
     }
 
     return (
-        <div className={cn("font-semibold", "text-2xl text-gray-900")}>
+        <div className={cn("font-semibold text-2xl text-gray-900", className)}>
             {currencyFormatter.format(Number(value) || 0)}
         </div>
     );
