@@ -3,10 +3,7 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
 
-const currencyFormatter = new Intl.NumberFormat("vi-VN", {
-    style: "currency",
-    currency: "VND",
-});
+import { currencyFormatter } from "@/lib/utils";
 
 interface CurrencyProps {
     value?: string | number;
@@ -25,7 +22,7 @@ const Currency: React.FC<CurrencyProps> = ({ value, className }) => {
     }
 
     return (
-        <div className={cn("font-semibold text-2xl text-gray-900", className)}>
+        <div className={cn("font-semibold text-xl text-gray-900", className)}>
             {currencyFormatter.format(Number(value) || 0)}
         </div>
     );

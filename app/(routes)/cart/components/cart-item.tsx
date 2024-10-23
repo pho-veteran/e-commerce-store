@@ -39,11 +39,9 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                     <IconButton onClick={onRemove} icon={<X size={16} />} />
                 </div>
                 <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-                    <div className="flex justify-between">
-                        <p className="text-xl font-semibold text-black">
-                            {data.product.name}
-                        </p>
-                    </div>
+                    <p className="text-xl font-semibold text-black">
+                        {data.product.name}
+                    </p>
                     <div className="mt-1 flex text-sm">
                         <div className="flex gap-x-2 items-center">
                             <p className="text-gray-500">{data.product.color.name}</p>
@@ -56,13 +54,13 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                             {data.product.size.name}
                         </p>
                     </div>
-                    <Currency value={data.product.price} className="sm:text-xl mt-1 text-base" />
+                    <Currency value={Number(data.product.price) * data.quantity} className="sm:text-xl mt-1 text-base" />
                 </div>
                 <div className="flex flex-col h-8 justify-between w-fit">
                     <ItemQuantity
                         data={data.quantity}
                         onQuantityChange={onQuantityChange}
-                        onRemove={onRemove} 
+                        onRemove={onRemove}
                     />
                 </div>
             </div>
