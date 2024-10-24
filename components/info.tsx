@@ -49,7 +49,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     onRemove={() => {}}
                 />
             </div>
-            <div className="mt-5 flex items-center gap-x-3">
+            <div className="mt-6 flex items-center gap-x-3">
                 <Button
                     className="flex items-center gap-x-2"
                     onClick={() => cart.addItem(data, quantity)}

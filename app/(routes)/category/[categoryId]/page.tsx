@@ -4,11 +4,13 @@ import getColors from "@/actions/get-colors";
 import getCategory from "@/actions/get-category";
 import Container from "@/components/ui/container";
 import Billboard from "@/components/billboard";
-import Filter from "./components/filter";
+import VariantFilter from "./components/variant-filter";
 import NoResults from "@/components/no-result";
 import ProductCard from "@/components/ui/product-card";
 import MobileFilters from "./components/mobile-filters";
 import CategoryBreadcrumb from "./components/category-breadcrumb";
+import PriceFilter from "./components/price-filter";
+import { redirect } from "next/navigation";
 
 export const revalidate = 0;
 
@@ -19,6 +21,7 @@ interface CategoryPageProps {
     searchParams: {
         colorId: string;
         sizeId: string;
+        price: string;
     };
 }
 
@@ -26,11 +29,28 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     params,
     searchParams,
 }) => {
-    const products = await getProducts({
+    let products = await getProducts({
         categoryId: params.categoryId,
         colorId: searchParams.colorId,
         sizeId: searchParams.sizeId,
     });
+
+    const [minPrice, maxPrice] = searchParams.price
+        ? searchParams.price.split(",")
+        : [];
+
+    if (minPrice && maxPrice) {
+        const min = parseInt(minPrice);
+        const max = parseInt(maxPrice);
+        if (isNaN(min) || isNaN(max)) {
+            redirect("/404");
+        } else {
+            products = products.filter((product) => {
+                const productPrice = parseInt(product.price);
+                return productPrice >= min && productPrice <= max;
+            });
+        }
+    }
 
     const sizes = await getSizes();
     const colors = await getColors();
@@ -47,16 +67,17 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-6">
                         <MobileFilters sizes={sizes} colors={colors} />
                         <div className="hidden lg:block">
-                            <Filter
+                            <VariantFilter
                                 valueKey="sizeId"
                                 name="Sizes"
                                 data={sizes}
                             />
-                            <Filter
+                            <VariantFilter
                                 valueKey="colorId"
                                 name="Colors"
                                 data={colors}
                             />
+                            <PriceFilter />
                         </div>
                         <div className="mt-6 lg:col-span-4 lg:mt-0">
                             {products.length === 0 && <NoResults />}

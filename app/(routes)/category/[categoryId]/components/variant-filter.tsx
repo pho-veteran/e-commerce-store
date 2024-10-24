@@ -6,12 +6,12 @@ import { Size, Color } from "@/types";
 import Button from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-interface FilterProps {
+interface VariantFilterProps {
     data: (Size | Color)[];
     name: string;
     valueKey: string;
 }
-const Filter: React.FC<FilterProps> = ({ data, name, valueKey }) => {
+const VariantFilter: React.FC<VariantFilterProps> = ({ data, name, valueKey }) => {
     const searchParams = useSearchParams();
     const router = useRouter();
 
@@ -64,4 +64,4 @@ const Filter: React.FC<FilterProps> = ({ data, name, valueKey }) => {
     );
 };
 
-export default Filter;
+export default VariantFilter;

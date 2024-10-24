@@ -7,7 +7,8 @@ import { Dialog, DialogPanel } from "@headlessui/react";
 import { Size, Color } from "@/types";
 import Button from "@/components/ui/Button";
 import IconButton from "@/components/ui/icon-button";
-import Filter from "./filter";
+import Filter from "./variant-filter";
+import PriceFilter from "./price-filter";
 
 interface MobileFiltersProps {
     sizes: Size[];
@@ -61,6 +62,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
                                 name="Colors"
                                 data={colors}
                             />
+                            <PriceFilter />
                         </div>
                     </DialogPanel>
                 </div>
