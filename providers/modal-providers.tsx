@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import PreviewModal from "@/components/preview-modal";
+import SearchDrawer from "@/components/search-drawer";
 
 const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -18,6 +19,7 @@ const ModalProvider = () => {
     return (
         <>
             <PreviewModal />
+            <SearchDrawer />
         </>
     );
 };

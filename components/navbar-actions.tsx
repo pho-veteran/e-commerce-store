@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 
 import useCart from "@/hooks/use-cart";
 import Button from "@/components/ui/Button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import CartHover from "./cart-hover";
 import IconButton from "./ui/icon-button";
+import useNavDrawer from "@/hooks/use-navbar-drawer";
 
 const NavbarActions = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -16,7 +17,9 @@ const NavbarActions = () => {
     }, []);
 
     const router = useRouter();
+    const searchParams = useSearchParams();
     const cart = useCart();
+    const navDrawer = useNavDrawer();
 
     if (!isMounted) return null;
 
@@ -25,6 +28,9 @@ const NavbarActions = () => {
             <IconButton 
                 icon={<Search size={20} />}
                 className="border-none shadow-none"
+                onClick={() => {                
+                    navDrawer.onOpen(searchParams.get("name") || "");
+                }}
             />
             <CartHover>
                 <Button className="flex items-center rounded-full bg-black px-4 py-2" onClick={() => {

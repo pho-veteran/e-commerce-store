@@ -9,6 +9,7 @@ import {
 import useCart from "@/hooks/use-cart"
 import CartHoverCard from "./ui/cart-hover-card"
 import Button from "@/components/ui/Button";
+import { Ellipsis } from "lucide-react"
 
 const CartHover = ({
     children
@@ -27,7 +28,7 @@ const CartHover = ({
                     <p className="text-center py-4">Cart is empty</p>
                 )}
                 <ul>
-                    {items.map((item) => {
+                    {items.slice(0, 3).map((item) => {
                         return (
                             <CartHoverCard
                                 key={item.product.id}
@@ -36,6 +37,11 @@ const CartHover = ({
                         )
                     })}
                 </ul>
+                {items.length > 3 && (
+                    <div className="flex justify-center py-2 border-b">
+                        <Ellipsis size={20} className="text-neutral-400"/>
+                    </div>
+                )}
                 <Button className="w-full mt-6 rounded-md" onClick={() => {
                     router.push("/cart");
                 }} disabled={items.length === 0}>
