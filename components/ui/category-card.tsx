@@ -12,7 +12,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
 
     return (
         <div
-            className="rounded-xl overflow-hidden"
+            className="rounded-xl overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
             onClick={() => {
                 router.push(`/category/${data.id}`);
             }}
