@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import ModalProvider from "@/providers/modal-providers";
 import ToastProvider from "@/providers/toast-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const font = Mulish({ subsets: ["latin"] });
 
@@ -20,14 +21,16 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className={`${font.className} antialiased`}>
-                <ModalProvider />
-                <ToastProvider />
-                <Navbar />
-                {children}
-                <Footer />
-            </body>
-        </html>
+        <ClerkProvider>
+            <html lang="en">
+                <body className={`${font.className} antialiased`}>
+                    <ModalProvider />
+                    <ToastProvider />
+                    <Navbar />
+                    {children}
+                    <Footer />
+                </body>
+            </html>
+        </ClerkProvider>
     );
 }

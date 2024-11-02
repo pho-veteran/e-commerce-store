@@ -9,6 +9,7 @@ import ProductList from "@/components/product-list";
 import Gallery from "@/components/gallery"
 import Info from "@/components/info";
 import ProductBreadcrumb from "./components/product-breadcrumb";
+import SocialShare from "@/components/ui/social-share";
 
 interface ProductPageProps {
     params: {
@@ -38,7 +39,12 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
                     />
                     <div className="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                         {/* Gallery */}
-                        <Gallery images={product.images} />
+                        <div className="flex gap-4">
+                            <Gallery images={product.images} />
+                            <SocialShare
+                                mediaUrl={product.images[0].url}
+                            />
+                        </div>
                         <div
                             className="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0"
                         >

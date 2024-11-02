@@ -8,6 +8,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import CartHover from "./cart-hover";
 import IconButton from "./ui/icon-button";
 import useNavDrawer from "@/hooks/use-navbar-drawer";
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import AuthMenu from "./ui/auth-menu";
 
 const NavbarActions = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -25,10 +27,11 @@ const NavbarActions = () => {
 
     return (
         <div className="ml-auto flex items-center gap-x-4">
-            <IconButton 
+            <AuthMenu />
+            <IconButton
                 icon={<Search size={20} />}
                 className="border-none shadow-none"
-                onClick={() => {                
+                onClick={() => {
                     navDrawer.onOpen(searchParams.get("name") || "");
                 }}
             />
