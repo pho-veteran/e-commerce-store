@@ -3,20 +3,18 @@
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Expand, ShoppingCart } from "lucide-react";
+import { Expand, Heart } from "lucide-react";
 
 import { Product } from "@/types";
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
-import useCart from "@/hooks/use-cart";
 
 interface ProductCardProps {
     data: Product;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
-    const cart = useCart();
     const router = useRouter();
     const previewModal = usePreviewModal();
 
@@ -29,9 +27,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
         previewModal.onOpen(data);
     }
 
-    const onAddToCart: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const onAddToWishlist: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.stopPropagation();
-        cart.addItem(data, 1);
+        console.log("Add to wishlist");
     }
 
     return (
@@ -53,9 +51,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                             }
                         />
                         <IconButton
-                            onClick={onAddToCart}
+                            onClick={onAddToWishlist}
                             icon={
-                                <ShoppingCart
+                                <Heart
                                     size={20}
                                     className="text-gray-600"
                                 />

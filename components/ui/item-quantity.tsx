@@ -44,12 +44,12 @@ const ItemQuantity: React.FC<ItemQuantityProps> = ({
     }
 
     return (
-        <div className="flex rounded-sm border-collapse border border-gray-200 h-full">
-            <button className="flex items-center justify-center border-r border-gray-200 w-8" onClick={onDecrease}>
+        <div className="flex rounded-sm border-collapse border border-gray-200 h-auto">
+            <button className="flex items-center justify-center border-r border-gray-200 w-10" onClick={onDecrease}>
                 <Minus size={16} />
             </button>
             <input type="tel" value={quantity} className="px-2 py-1 w-16 text-center" onChange={onInputChange} ref={inputRef}/>
-            <button className="flex items-center justify-center border-l border-gray-200 w-8" onClick={onIncrease}>
+            <button className="flex items-center justify-center border-l border-gray-200 w-10" onClick={onIncrease}>
                 <Plus size={16} />
             </button>
         </div>

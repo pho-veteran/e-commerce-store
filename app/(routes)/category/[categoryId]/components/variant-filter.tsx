@@ -3,8 +3,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import qs from "query-string";
 
 import { Size, Color } from "@/types";
-import Button from "@/components/ui/Button";
-import { cn } from "@/lib/utils";
+import VariantButtons from "@/components/ui/variant-buttons";
 
 interface VariantFilterProps {
     data: (Size | Color)[];
@@ -37,29 +36,19 @@ const VariantFilter: React.FC<VariantFilterProps> = ({ data, name, valueKey }) =
             { skipNull: true }
         );
 
-        router.push(url);
+        router.push(url, { scroll: false });
     };
 
     return (
         <div className="mb-8">
             <h3 className="text-lg font-semibold">{name}</h3>
             <hr className="my-4" />
-            <div className="flex flex-wrap gap-2">
-                {data.map((item) => (
-                    <div key={item.id} className="flex items-center">
-                        <Button
-                            className={cn(
-                                "rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300 flex gap-x-2",
-                                selectedValue === item.id &&
-                                    "bg-black text-white"
-                            )}
-                            onClick={() => onClick(item.id)}
-                        >
-                            <span>{item.name}</span>
-                        </Button>
-                    </div>
-                ))}
-            </div>
+            <VariantButtons 
+                data={data} 
+                onClick={onClick} 
+                selectedValue={selectedValue}
+                type={valueKey === "sizeId" ? "size" : "color"}
+            />
         </div>
     );
 };

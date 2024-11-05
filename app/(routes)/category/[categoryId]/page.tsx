@@ -11,6 +11,7 @@ import MobileFilters from "./components/mobile-filters";
 import CategoryBreadcrumb from "./components/category-breadcrumb";
 import PriceFilter from "./components/price-filter";
 import { redirect } from "next/navigation";
+import NameFilter from "./components/name-filter";
 
 export const revalidate = 0;
 
@@ -22,6 +23,7 @@ interface CategoryPageProps {
         colorId: string;
         sizeId: string;
         price: string;
+        name: string;
     };
 }
 
@@ -33,6 +35,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
         categoryId: params.categoryId,
         colorId: searchParams.colorId,
         sizeId: searchParams.sizeId,
+        name: searchParams.name,
     });
 
     const [minPrice, maxPrice] = searchParams.price
@@ -67,6 +70,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                     <div className="lg:grid lg:grid-cols-5 lg:gap-x-6">
                         <MobileFilters sizes={sizes} colors={colors} />
                         <div className="hidden lg:block">
+                            <NameFilter />
                             <VariantFilter
                                 valueKey="sizeId"
                                 name="Sizes"

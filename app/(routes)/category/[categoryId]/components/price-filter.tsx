@@ -32,7 +32,7 @@ const PriceFilter: React.FC = () => {
             },
             { skipNull: true }
         );
-        router.push(url);
+        router.push(url, { scroll: false });
     };
 
     const handlePriceChange = (setter: React.Dispatch<React.SetStateAction<string>>) =>

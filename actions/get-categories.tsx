@@ -8,7 +8,7 @@ interface Query {
     name?: string;
 }
 
-const getCategories = async (query: Query): Promise<Category[]> => {
+const getCategories = async (query?: Query): Promise<Category[]> => {
     const url = qs.stringifyUrl({
         url: URL,
         query: {

@@ -9,6 +9,7 @@ import Button from "@/components/ui/Button";
 import IconButton from "@/components/ui/icon-button";
 import Filter from "./variant-filter";
 import PriceFilter from "./price-filter";
+import NameFilter from "./name-filter";
 
 interface MobileFiltersProps {
     sizes: Size[];
@@ -52,6 +53,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
                             />
                         </div>
                         <div className="p-4">
+                            <NameFilter />
                             <Filter
                                 valueKey="sizeId"
                                 name="Sizes"

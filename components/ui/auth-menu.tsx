@@ -16,12 +16,16 @@ const AuthMenu = () => {
 
     return (
         <DropdownMenu>
-            <DropdownMenuTrigger>
-                <CircleUserRound size={24} />
+            <DropdownMenuTrigger
+                className="hover:scale-110 transition"
+            >
+                <CircleUserRound size={20} />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-44">
                 <SignedIn>
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel>
+                        My Account
+                    </DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>Profile</DropdownMenuItem>
                     <DropdownMenuItem>Settings</DropdownMenuItem>
