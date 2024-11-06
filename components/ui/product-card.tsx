@@ -3,12 +3,13 @@
 import { MouseEventHandler } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Expand, Heart } from "lucide-react";
+import { Expand, Heart, HeartOff } from "lucide-react";
 
 import { Product } from "@/types";
 import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
 import usePreviewModal from "@/hooks/use-preview-modal";
+import useWishlist from "@/hooks/use-wishlist";
 
 interface ProductCardProps {
     data: Product;
@@ -17,6 +18,7 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
     const router = useRouter();
     const previewModal = usePreviewModal();
+    const wishlist = useWishlist();
 
     const handleClick = () => {
         router.push(`/product/${data?.id}`);
@@ -29,7 +31,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
     const onAddToWishlist: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.stopPropagation();
-        console.log("Add to wishlist");
+        wishlist.addItem(data);
+    }
+
+    const onRemoveFromWishlist: MouseEventHandler<HTMLButtonElement> = (e) => {
+        e.stopPropagation();
+        wishlist.removeItem(data.id);
     }
 
     return (
@@ -50,15 +57,27 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
                                 <Expand size={20} className="text-gray-600" />
                             }
                         />
-                        <IconButton
-                            onClick={onAddToWishlist}
-                            icon={
-                                <Heart
-                                    size={20}
-                                    className="text-gray-600"
-                                />
-                            }
-                        />
+                        {wishlist.isWishlist(data.id) ? (
+                            <IconButton
+                                onClick={onRemoveFromWishlist}
+                                icon={
+                                    <HeartOff
+                                        size={20}
+                                        className="text-gray-600"
+                                    />
+                                }
+                            />
+                        ) : (
+                            <IconButton
+                                onClick={onAddToWishlist}
+                                icon={
+                                    <Heart
+                                        size={20}
+                                        className="text-gray-600"
+                                    />
+                                }
+                            />
+                        )}
                     </div>
                 </div>
             </div>

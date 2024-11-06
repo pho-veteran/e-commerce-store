@@ -1,6 +1,7 @@
 import getCategories from "@/actions/get-categories";
 import getCategory from "@/actions/get-category";
 import getProducts from "@/actions/get-products";
+import NoResults from "@/components/no-result";
 
 import CategoryCard from "@/components/ui/category-card";
 import Container from "@/components/ui/container";
@@ -25,10 +26,10 @@ const SearchPage: React.FC<SearchProps> = async ({ searchParams }) => {
 
     return (
         <Container>
-            <div className="flex flex-col px-4 sm:px-6 lg:px-8 mt-8">
-                <h1 className="text-black font-bold text-2xl">Search Results</h1>
+            <div className="flex flex-col px-4 sm:px-6 lg:px-8 py-16">
+                <h1 className="text-black font-bold text-3xl">Search Results</h1>
 
-                <Tabs defaultValue="products" className="mt-10">
+                <Tabs defaultValue="products" className="mt-12">
                     <TabsList>
                         <TabsTrigger
                             value="products"
@@ -48,6 +49,9 @@ const SearchPage: React.FC<SearchProps> = async ({ searchParams }) => {
                                 />
                             ))}
                         </div>
+                        {products.length === 0 && (
+                            <NoResults />
+                        )}
                     </TabsContent>
                     <TabsContent value="category">
                         {/* Category */}
@@ -61,6 +65,9 @@ const SearchPage: React.FC<SearchProps> = async ({ searchParams }) => {
                                     />
                                 ))}
                             </div>
+                            {categories.length === 0 && (
+                                <NoResults />
+                            )}
                         </h2>
                     </TabsContent>
                 </Tabs>

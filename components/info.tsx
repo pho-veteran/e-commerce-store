@@ -1,5 +1,5 @@
 "use client"
-import { Heart, ShoppingCart } from "lucide-react";
+import { Heart, HeartOff, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 import { Product } from "@/types";
@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import useCart from "@/hooks/use-cart";
 import ItemQuantity from "./ui/item-quantity";
 import VariantButtons from "./ui/variant-buttons";
+import useWishlist from "@/hooks/use-wishlist";
 
 interface InfoProps {
     data: Product;
@@ -15,11 +16,10 @@ interface InfoProps {
 
 const Info: React.FC<InfoProps> = ({ data }) => {
     const cart = useCart();
+    const wishlist = useWishlist();
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(data?.productSizes[0].size);
     const [color, setColor] = useState(data?.productColors[0].color);
-
-    console.log(data);
 
     const sizes = data.productSizes.map((size) => size.size);
     const colors = data.productColors.map((color) => color.color);
@@ -80,6 +80,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2"
                     onClick={() => {
                         if (size && color) {
+                            wishlist.removeItem(data.id);
                             cart.addItem(data, size, color, quantity);
                         }
                     }}
@@ -89,13 +90,27 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                 </Button>
             </div>
             <div className="mt-4">
-                <Button
-                    className="flex items-center gap-x-2 w-full rounded-md justify-center"
-                    onClick={() => console.log(data, size, color, quantity)}
-                >
-                    Add to Wishlist
-                    <Heart size={24} />
-                </Button>
+                {wishlist.isWishlist(data.id) ? (
+                    <Button
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center"
+                        onClick={() => {
+                            wishlist.removeItem(data.id);
+                        }}
+                    >
+                        Remove from Wishlist
+                        <HeartOff size={24} />
+                    </Button>
+                ) : (
+                    <Button
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center"
+                        onClick={() => {
+                            wishlist.addItem(data);
+                        }}
+                    >
+                        Add to Wishlist
+                        <Heart size={24} />
+                    </Button>
+                )}
             </div>
         </div>
     );

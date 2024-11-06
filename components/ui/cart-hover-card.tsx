@@ -14,7 +14,7 @@ const CartHoverCard: React.FC<CartHoverCardProps> = ({ data }) => {
     const cart = useCart();
 
     const onRemove = () => {
-        cart.removeItem(data.product.id);
+        cart.removeItem(data.product.id, data.color.id, data.size.id);
     }
 
     return (

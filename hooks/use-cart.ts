@@ -6,9 +6,19 @@ import { Product, OrderItem, Size, Color } from "@/types";
 
 interface CartStore {
     items: OrderItem[];
-    addItem: (product: Product, size: Size, color: Color, quantity: number) => void;
-    setQuantity: (id: string, quantity: number) => void;
-    removeItem: (id: string) => void;
+    addItem: (
+        product: Product,
+        size: Size,
+        color: Color,
+        quantity: number
+    ) => void;
+    setQuantity: (
+        productId: string,
+        colorId: string,
+        sizeId: string,
+        quantity: number
+    ) => void;
+    removeItem: (productId: string, colorId: string, sizeId: string) => void;
     removeAll: () => void;
 }
 
@@ -16,7 +26,12 @@ const useCart = create(
     persist<CartStore>(
         (set, get) => ({
             items: [],
-            addItem: (product: Product, size: Size, color: Color, quantity: number) => {
+            addItem: (
+                product: Product,
+                size: Size,
+                color: Color,
+                quantity: number
+            ) => {
                 const currentItems = get().items;
                 const existingItem = currentItems.find(
                     (item) =>
@@ -33,35 +48,57 @@ const useCart = create(
                     );
                     set({ items: updatedItems });
                     toast("Item quantity updated in cart", { icon: "🛒" });
-                } else {
-                    const newItem: OrderItem = {
-                        product,
-                        size,
-                        color,
-                        quantity,
-                    };
-                    console.log(newItem);
-                    set({ items: [...currentItems, newItem] });
-                    toast("Item added to cart", { icon: "🛒" });
+                    return;
                 }
+                const newItem: OrderItem = {
+                    product,
+                    size,
+                    color,
+                    quantity,
+                };
+                set({ items: [...currentItems, newItem] });
+                toast("Item added to cart", { icon: "🛒" });
             },
-            setQuantity: (id: string, quantity: number) => {
+            setQuantity: (
+                productId: string,
+                colorId: string,
+                sizeId: string,
+                quantity: number
+            ) => {
                 const currentItems = get().items;
                 set({
                     items: currentItems.map((item) =>
-                        item.product.id === id ? { ...item, quantity } : item
+                        item.product.id === productId &&
+                        item.size.id === sizeId &&
+                        item.color.id === colorId
+                            ? { ...item, quantity }
+                            : item
                     ),
                 });
             },
-            removeItem: (id: string) => {
+            removeItem: (
+                productId: string,
+                colorId: string,
+                sizeId: string
+            ) => {
                 const currentItems = get().items;
+                const filterItems = currentItems.filter(
+                    (item) =>
+                        (
+                            item.product.id !== productId &&
+                            item.size.id !== sizeId &&
+                            item.color.id !== colorId
+                        )
+                )
+                console.log(currentItems, filterItems);
                 set({
-                    items: currentItems.filter((item) => item.product.id !== id),
+                    items: filterItems,
                 });
                 toast("Item removed from cart", { icon: "🗑️" });
             },
             removeAll: () => {
                 set({ items: [] });
+                console.log("bruh")
                 toast("All items removed from cart", { icon: "🗑️" });
             },
         }),

@@ -1,5 +1,5 @@
 "use client";
-import { Search, ShoppingBag } from "lucide-react";
+import { Heart, Search, ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import useCart from "@/hooks/use-cart";
@@ -8,7 +8,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import CartHover from "./cart-hover";
 import IconButton from "./ui/icon-button";
 import useNavDrawer from "@/hooks/use-navbar-drawer";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import AuthMenu from "./ui/auth-menu";
 
 const NavbarActions = () => {
@@ -26,13 +25,20 @@ const NavbarActions = () => {
     if (!isMounted) return null;
 
     return (
-        <div className="ml-auto flex items-center gap-x-4">
+        <div className="ml-auto flex items-center gap-x-2">
             <AuthMenu />
             <IconButton
                 icon={<Search size={20} />}
                 className="border-none shadow-none"
                 onClick={() => {
                     navDrawer.onOpen(searchParams.get("name") || "");
+                }}
+            />
+            <IconButton
+                icon={<Heart size={20} />}
+                className="border-none shadow-none"
+                onClick={() => {
+                    router.push("/wishlist");
                 }}
             />
             <CartHover>

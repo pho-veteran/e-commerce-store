@@ -31,7 +31,7 @@ const CartHover = ({
                     {items.slice(0, 3).map((item) => {
                         return (
                             <CartHoverCard
-                                key={item.product.id}
+                                key={item.product.id.concat(item.color.id.concat(item.size.id))}
                                 data={item}
                             />
                         )
