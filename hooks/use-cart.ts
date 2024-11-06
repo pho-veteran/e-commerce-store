@@ -82,15 +82,15 @@ const useCart = create(
                 sizeId: string
             ) => {
                 const currentItems = get().items;
-                const filterItems = currentItems.filter(
+                const filterItem = currentItems.find(
                     (item) =>
                         (
-                            item.product.id !== productId &&
-                            item.size.id !== sizeId &&
-                            item.color.id !== colorId
+                            item.product.id === productId &&
+                            item.size.id === sizeId &&
+                            item.color.id === colorId
                         )
                 )
-                console.log(currentItems, filterItems);
+                const filterItems = currentItems.filter((item) => item !== filterItem)
                 set({
                     items: filterItems,
                 });
