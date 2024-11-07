@@ -19,7 +19,7 @@ const AuthMenu = () => {
             <DropdownMenuTrigger
                 className="hover:scale-110 transition"
             >
-                <CircleUserRound size={20} />
+                <CircleUserRound size={24} />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="w-44">
                 <SignedIn>

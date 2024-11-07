@@ -35,9 +35,9 @@ const CartPage = () => {
                                     <p className="text-neutral-500">Your cart is empty.</p>
                                 )}
                                 <ul>
-                                    {cart.items.map((item) => (
+                                    {cart.items.map((item, index) => (
                                         <CartItem
-                                            key={item.product.id.concat(item.color.id.concat(item.size.id))}
+                                            key={index}
                                             data={item}
                                         />
                                     ))}

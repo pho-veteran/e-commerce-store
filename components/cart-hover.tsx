@@ -24,14 +24,15 @@ const CartHover = ({
         <HoverCard>
             <HoverCardTrigger>{children}</HoverCardTrigger>
             <HoverCardContent className="w-[24rem]" side="bottom" align="end">
+                <h2 className="text-xl font-bold mt-2">Your Cart</h2>
                 {items.length === 0 && (    
                     <p className="text-center py-4">Cart is empty</p>
                 )}
                 <ul>
-                    {items.slice(0, 3).map((item) => {
+                    {items.slice(0, 3).map((item, index) => {
                         return (
                             <CartHoverCard
-                                key={item.product.id.concat(item.color.id.concat(item.size.id))}
+                                key={index}
                                 data={item}
                             />
                         )

@@ -82,17 +82,12 @@ const useCart = create(
                 sizeId: string
             ) => {
                 const currentItems = get().items;
-                const filterItem = currentItems.find(
-                    (item) =>
-                        (
-                            item.product.id === productId &&
-                            item.size.id === sizeId &&
-                            item.color.id === colorId
-                        )
-                )
-                const filterItems = currentItems.filter((item) => item !== filterItem)
                 set({
-                    items: filterItems,
+                    items: currentItems.filter((item) => (
+                        item.product.id === productId &&
+                        item.size.id === sizeId &&
+                        item.color.id === colorId
+                    )),
                 });
                 toast("Item removed from cart", { icon: "🗑️" });
             },
