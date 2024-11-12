@@ -10,6 +10,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
+import IconButton from "./icon-button";
 
 const AuthMenu = () => {
     const router = useRouter();
@@ -18,18 +20,40 @@ const AuthMenu = () => {
         <DropdownMenu>
             <DropdownMenuTrigger
                 className="hover:scale-110 transition"
+                asChild
             >
-                <CircleUserRound size={24} />
+                <IconButton
+                    icon={<CircleUserRound size={24} />}
+                    className="border-none shadow-none"
+                />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-44">
+            <DropdownMenuContent className="w-48">
                 <SignedIn>
                     <DropdownMenuLabel>
                         My Account
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem>History</DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link
+                            href="/account"
+                        >
+                            Account Settings
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link
+                            href="/account/addresses"
+                        >
+                            Addresses
+                        </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                        <Link
+                            href="/account/orders"
+                        >
+                            Orders History
+                        </Link>
+                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem>
                         <LogOut size={24} />
@@ -55,7 +79,6 @@ const AuthMenu = () => {
                 </SignedOut>
             </DropdownMenuContent>
         </DropdownMenu>
-
     );
 }
 

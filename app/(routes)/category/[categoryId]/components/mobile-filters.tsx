@@ -5,7 +5,7 @@ import { Plus, X } from "lucide-react";
 import { Dialog, DialogPanel } from "@headlessui/react";
 
 import { Size, Color } from "@/types";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import IconButton from "@/components/ui/icon-button";
 import Filter from "./variant-filter";
 import PriceFilter from "./price-filter";
@@ -29,7 +29,7 @@ const MobileFilters: React.FC<MobileFiltersProps> = ({ sizes, colors }) => {
     return (
         <>
             <Button
-                className="flex items-center gap-x-2 lg:hidden"
+                className="flex items-center gap-x-2 lg:hidden text-base h-12"
                 onClick={onOpen}
             >
                 Filters

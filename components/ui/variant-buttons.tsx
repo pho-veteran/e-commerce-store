@@ -1,5 +1,5 @@
 import { Color, Size } from "@/types";
-import Button from "./Button";
+import { Button } from "./button";
 import { cn } from "@/lib/utils";
 
 interface VariantButtonsProps {
@@ -21,7 +21,7 @@ const VariantButtons: React.FC<VariantButtonsProps> = ({
                 <div key={item.id} className="flex items-center">
                     <Button
                         className={cn(
-                            "rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300 flex gap-x-2 items-center",
+                            "rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300 flex gap-x-2 items-center hover:border-black hover:bg-transparent shadow-none",
                             selectedValue === item.id &&
                             "border-black border-2"
                         )}

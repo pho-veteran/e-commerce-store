@@ -7,7 +7,7 @@ interface IconButtonProps {
     className?: string;
 }
 
-const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(({ onClick, icon, className }, ref) => {
+const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(({ onClick, icon, className, ...props}, ref) => {
     return (
         <button
             onClick={onClick}
@@ -16,6 +16,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(({ onClick, ic
                 className
             )}
             ref={ref}
+            {...props}
         >
             {icon}
         </button>

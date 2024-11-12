@@ -1,8 +1,21 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
 import { toast } from "react-hot-toast";
+import { get, set, del } from "idb-keyval";
 
 import { Product } from "@/types";
+
+const storage: StateStorage = {
+    getItem: async (name: string): Promise<string | null> => {
+        return (await get(name)) || null;
+    },
+    setItem: async (name: string, value: string): Promise<void> => {
+        await set(name, value);
+    },
+    removeItem: async (name: string): Promise<void> => {
+        await del(name);
+    },
+};
 
 interface WishlistStore {
     items: Product[];
@@ -19,8 +32,7 @@ const useWishlist = create(
             addItem: (product: Product) => {
                 const currentItems = get().items;
                 const existingItem = currentItems.find(
-                    (item) =>
-                        item.id === product.id
+                    (item) => item.id === product.id
                 );
 
                 if (existingItem) {
@@ -34,7 +46,7 @@ const useWishlist = create(
                 const currentItems = get().items;
                 set({
                     items: currentItems.filter((item) => item.id !== id),
-                });            
+                });
             },
             removeAll: () => {
                 set({ items: [] });
@@ -47,7 +59,7 @@ const useWishlist = create(
         }),
         {
             name: "wishlist-storage",
-            storage: createJSONStorage(() => localStorage),
+            storage: createJSONStorage(() => storage),
         }
     )
 );

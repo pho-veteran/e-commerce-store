@@ -3,10 +3,7 @@ import Container from "./ui/container";
 
 const Footer = () => {
     return (
-        <footer className="bg-black border-t mt-20">
-            {/* <div className="mx-auto py-10">
-                
-            </div> */}
+        <footer className="bg-black border-t">
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-12 w-full py-12 px-4 sm:px-6 text-white">
                     <div className="space-y-4 col-span-3 text-sm">

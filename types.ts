@@ -56,3 +56,29 @@ export interface OrderItem {
     size: Size;
     quantity: number;
 }
+
+export interface Province {
+    name: string,
+    code: Number,
+    codename: string,
+    division_type: string,
+    phone_code: string,
+    districts: District[]
+}
+
+export interface District {
+    name: string,
+    code: Number,
+    codename: string,
+    division_type: string,
+    short_codename: string,
+    wards: Ward[]
+}
+
+export interface Ward {
+    name: string,
+    code: Number,
+    codename: string,
+    division_type: string,
+    short_codename: string
+}

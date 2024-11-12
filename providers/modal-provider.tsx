@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 
-import PreviewModal from "@/components/preview-modal";
+import PreviewModal from "@/components/modals/preview-modal";
 import SearchDrawer from "@/components/search-drawer";
+import AddressModal from "@/components/modals/address-modal";
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 
 const ModalProvider = () => {
     const [isMounted, setIsMounted] = useState(false);
@@ -19,6 +21,8 @@ const ModalProvider = () => {
     return (
         <>
             <PreviewModal />
+            <AddressModal />
+            <ConfirmModal />
             <SearchDrawer />
         </>
     );

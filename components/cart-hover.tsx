@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/hover-card"
 import useCart from "@/hooks/use-cart"
 import CartHoverCard from "./ui/cart-hover-card"
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { Ellipsis } from "lucide-react"
 
 const CartHover = ({
@@ -43,7 +43,7 @@ const CartHover = ({
                         <Ellipsis size={20} className="text-neutral-400"/>
                     </div>
                 )}
-                <Button className="w-full mt-6 rounded-md" onClick={() => {
+                <Button className="w-full mt-6 rounded-md text-base" onClick={() => {
                     router.push("/cart");
                 }} disabled={items.length === 0}>
                     Go to cart

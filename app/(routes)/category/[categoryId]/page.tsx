@@ -60,7 +60,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     const category = await getCategory(params.categoryId);
 
     return (
-        <div>
+        <div className="mb-10">
             <Container>
                 <Billboard data={category.billboard} />
                 <CategoryBreadcrumb 

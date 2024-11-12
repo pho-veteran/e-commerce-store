@@ -1,8 +1,21 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist, createJSONStorage, StateStorage } from "zustand/middleware";
 import { toast } from "react-hot-toast";
+import { get, set, del } from "idb-keyval";
 
 import { Product, OrderItem, Size, Color } from "@/types";
+
+const storage: StateStorage = {
+    getItem: async (name: string): Promise<string | null> => {
+        return (await get(name)) || null;
+    },
+    setItem: async (name: string, value: string): Promise<void> => {
+        await set(name, value);
+    },
+    removeItem: async (name: string): Promise<void> => {
+        await del(name);
+    },
+};
 
 interface CartStore {
     items: OrderItem[];
@@ -83,23 +96,23 @@ const useCart = create(
             ) => {
                 const currentItems = get().items;
                 set({
-                    items: currentItems.filter((item) => (
-                        item.product.id === productId &&
-                        item.size.id === sizeId &&
-                        item.color.id === colorId
-                    )),
+                    items: currentItems.filter(
+                        (item) =>
+                            item.product.id !== productId &&
+                            item.size.id !== sizeId &&
+                            item.color.id !== colorId
+                    ),
                 });
                 toast("Item removed from cart", { icon: "🗑️" });
             },
             removeAll: () => {
                 set({ items: [] });
-                console.log("bruh")
                 toast("All items removed from cart", { icon: "🗑️" });
             },
         }),
         {
             name: "cart-storage",
-            storage: createJSONStorage(() => localStorage),
+            storage: createJSONStorage(() => storage),
         }
     )
 );

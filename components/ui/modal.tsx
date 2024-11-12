@@ -1,22 +1,25 @@
 "use client";
 
+import { Fragment } from "react";
+import { X } from "lucide-react";
+import { cn } from "@/lib/utils";
+
 import {
     Dialog,
     DialogPanel,
     Transition,
     TransitionChild,
 } from "@headlessui/react";
-import { Fragment } from "react";
 import IconButton from "./icon-button";
-import { X } from "lucide-react";
 
 interface ModalProps {
     open: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    className?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
+const Modal: React.FC<ModalProps> = ({ open, onClose, children, className }) => {
     return (
         <Transition show={open} appear as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -33,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
                             leaveTo="opacity-0 scale-95"
                         >
                             <DialogPanel className="w-full max-w-3xl overflow-hidden rounded-lg text-left align-middle">
-                                <div className="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
+                                <div className={cn("relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8", className)}>
                                     <div className="absolute right-4 top-4">
                                         <IconButton
                                             onClick={onClose}

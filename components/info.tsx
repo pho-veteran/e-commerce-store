@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Product } from "@/types";
 import Currency from "@/components/ui/currency";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import useCart from "@/hooks/use-cart";
 import ItemQuantity from "./ui/item-quantity";
 import VariantButtons from "./ui/variant-buttons";
@@ -77,7 +77,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     onRemove={() => { }}
                 />
                 <Button
-                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2"
+                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2 text-base"
                     onClick={() => {
                         if (size && color) {
                             wishlist.removeItem(data.id);
@@ -92,7 +92,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             <div className="mt-4">
                 {wishlist.isWishlist(data.id) ? (
                     <Button
-                        className="flex items-center gap-x-2 w-full rounded-md justify-center"
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base"
                         onClick={() => {
                             wishlist.removeItem(data.id);
                         }}
@@ -102,7 +102,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     </Button>
                 ) : (
                     <Button
-                        className="flex items-center gap-x-2 w-full rounded-md justify-center"
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base"
                         onClick={() => {
                             wishlist.addItem(data);
                         }}

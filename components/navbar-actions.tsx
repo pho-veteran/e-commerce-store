@@ -3,7 +3,7 @@ import { Heart, Search, ShoppingBag } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import useCart from "@/hooks/use-cart";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import CartHover from "./cart-hover";
 import IconButton from "./ui/icon-button";
@@ -51,7 +51,7 @@ const NavbarActions = () => {
                     router.push("/cart");
                 }}>
                     <ShoppingBag size={20} color="white" />
-                    <span className="ml-2 text-sm font-medium text-white">
+                    <span className="text-sm font-medium text-white">
                         {cart.items.length}
                     </span>
                 </Button>

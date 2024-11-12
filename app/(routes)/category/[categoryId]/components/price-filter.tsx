@@ -5,7 +5,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import qs from "query-string";
 import { formatMoneyString, moneyStringToNumber } from "@/lib/utils";
 import IconInput from "@/components/ui/icon-input";
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 
 const PriceFilter: React.FC = () => {
@@ -85,9 +85,9 @@ const PriceFilter: React.FC = () => {
                     onChange={handlePriceChange(setMaxPrice)}
                 />
             </div>
-            <div className="grid grid-cols-2 mt-6">
+            <div className="grid grid-cols-2 mt-6 gap-x-2">
                 <Button
-                    className="rounded-md text-sm bg-transparent border-none text-gray-800 text-bold"
+                    className="rounded-md text-sm bg-transparent border-none text-gray-800 text-bold hover:bg-transparent"
                     title="Clear Filter"
                     onClick={onClearClick}
                 >

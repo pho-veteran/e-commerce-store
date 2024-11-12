@@ -30,7 +30,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
     });
 
     return (
-        <div className="bg-white">
+        <div className="bg-white mb-10">
             <Container>
                 <div className="px-4 py-10 sm:px-6 lg:px-8">
                     <ProductBreadcrumb

@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Expand, Heart, HeartOff } from "lucide-react";
@@ -16,9 +16,17 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
     const router = useRouter();
     const previewModal = usePreviewModal();
     const wishlist = useWishlist();
+
+    if (!isMounted) return null;
 
     const handleClick = () => {
         router.push(`/product/${data?.id}`);

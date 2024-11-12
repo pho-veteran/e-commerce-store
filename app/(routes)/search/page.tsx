@@ -1,5 +1,4 @@
 import getCategories from "@/actions/get-categories";
-import getCategory from "@/actions/get-category";
 import getProducts from "@/actions/get-products";
 import NoResults from "@/components/no-result";
 
