@@ -57,11 +57,14 @@ const AddressCard: React.FC<AddressCardProps> = ({
     return (
         <div className="w-full bg-white rounded-md p-4 space-y-2 text-sm">
             <div className="flex items-center gap-x-4">
-                <h5
-                    className="text-black text-base uppercase"
-                >{address.name}</h5>
+                <div>
+                    <h5
+                        className="text-black text-base uppercase font-semibold"
+                    >{address.name}</h5>
+                    <span className="text-neutral-400 font-mono text-xs">{address.type}</span>
+                </div>
                 {address.isDefault ? (
-                    <div className="text-green-400 flex items-center gap-x-1">
+                    <div className="text-green-400 flex items-center gap-x-1 self-start leading-6">
                         <CircleCheck size={12} />
                         <span>Default Address</span>
                     </div>

@@ -26,7 +26,6 @@ export default function RootLayout({
                 <body className={`${font.className} antialiased`}>
                     <ModalProvider />
                     <ToastProvider />
-                    <Navbar />
                     {children}
                     <Footer />
                 </body>

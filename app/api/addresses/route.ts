@@ -9,7 +9,7 @@ export async function POST(
         const { userId }: { userId: string | null } = await auth();
         const body = await req.json();
 
-        const {
+        let {
             name,
             phone,
             generalAddress,
@@ -41,6 +41,16 @@ export async function POST(
                     isDefault: false,
                 },
             });
+        } else {
+            const addresses = await prisma.address.findMany({
+                where: {
+                    userId,
+                },
+            });
+
+            if (addresses.length === 0) {
+                isDefault = true;
+            }
         }
 
         const product = await prisma.address.create({
@@ -66,10 +76,24 @@ export async function GET(
     req: Request,
 ){
     try {
+        const { searchParams } = new URL(req.url);
+        const isOnlyDefault = searchParams.get("isOnlyDefault") === "true" || false;
+
         const { userId }: { userId: string | null } = await auth();
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
+        }
+
+        if (isOnlyDefault) {
+            const address = await prisma.address.findFirst({
+                where: {
+                    userId,
+                    isDefault: true,
+                },
+            });
+
+            return NextResponse.json(address);
         }
 
         const addresses = await prisma.address.findMany({

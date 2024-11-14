@@ -27,7 +27,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
 
     return (
         <li className="flex py-6 border-b">
-            <div className="relative h-24 w-24 rounded-md overflow-hidden sm:h-48 sm:w-48">
+            <div className="relative h-36 w-36 rounded-md overflow-hidden sm:h-48 sm:w-48">
                 <Image
                     fill
                     src={data.product.images[0].url}
@@ -63,7 +63,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                     </div>
                     <Currency value={Number(data.product.price) * data.quantity} className="sm:text-lg mt-2 text-base" />
                 </div>
-                <div className="flex flex-col h-8 justify-between w-fit mt-2">
+                <div className="self-start mt-2">
                     <ItemQuantity
                         data={data.quantity}
                         onQuantityChange={onQuantityChange}

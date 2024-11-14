@@ -77,7 +77,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     onRemove={() => { }}
                 />
                 <Button
-                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2 text-base"
+                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2 text-base hover:bg-neutral-100"
                     onClick={() => {
                         if (size && color) {
                             wishlist.removeItem(data.id);

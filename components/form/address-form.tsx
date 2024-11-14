@@ -1,12 +1,7 @@
 "use client";
 
-import * as z from "zod";
-import axios from "axios";
-import toast from "react-hot-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
 
 import { Address } from "@prisma/client";
 
@@ -20,43 +15,25 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { isValidPhoneNumber } from "react-phone-number-input";
 import { PhoneInput } from "@/components/ui/phone-input";
 import AddressSelector from "./address-selector";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
-import useAddressModal from "@/hooks/use-address-modal";
+
+import { formSchema, AddressFormValues } from "./schemas/address-schema";
 
 interface AddressFormProps {
     initialData: Address | undefined;
+    loading: boolean;
+    onSubmit: (data: AddressFormValues) => void;
 }
-
-const formSchema = z.object({
-    name: z.string().min(3),
-    phone: z
-        .string()
-        .refine(isValidPhoneNumber, { message: "Invalid phone number" })
-        .or(z.literal("")),
-    generalAddress: z.string(),
-    streetAddress: z.string(),
-    type: z.enum(["HOME", "WORK"], {
-        required_error: "You need to select a address type.",
-    }),
-    isDefault: z.boolean(),
-});
-
-type AddressFormValues = z.infer<typeof formSchema>;
 
 const AddressForm: React.FC<AddressFormProps> = ({
     initialData,
+    loading,
+    onSubmit
 }) => {
-    const router = useRouter();
-    const params = useParams();
-    const addressModal = useAddressModal();
-
-    const [loading, setLoading] = useState(false);
-
     const title = initialData ? "Edit Address" : "New Address";
     const action = initialData ? "Save changes" : "Create";
 
@@ -71,47 +48,6 @@ const AddressForm: React.FC<AddressFormProps> = ({
             isDefault: false,
         },
     });
-
-    const onSubmit = async (data: AddressFormValues) => {
-        try {
-            setLoading(true);
-
-            if (!initialData) {
-                await axios.post(`/api/addresses`, data);
-            } else {
-                await axios.patch(
-                    `/api/addresses/${initialData.id}`,
-                    data
-                );
-            }
-            router.refresh();
-            addressModal.onClose();
-            
-            console.log(data);
-        } catch (error) {
-            toast.error("Something went wrong.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    const onDelete = async () => {
-        try {
-            setLoading(true);
-            await axios.delete(
-                `/api/${params.storeId}/categories/${params.addressId}`
-            );
-            router.refresh();
-            router.push(`/${params.storeId}/categories`);
-            toast.success("Address deleted successfully");
-        } catch (error) {
-            toast.error(
-                "Make sure to delete all products associated with this address."
-            );
-        } finally {
-            setLoading(false);
-        }
-    };
 
     return (
         <div className="w-full">
@@ -149,7 +85,6 @@ const AddressForm: React.FC<AddressFormProps> = ({
                                         <PhoneInput
                                             placeholder="Enter a phone number"
                                             defaultCountry="VN"
-                                            defaultValue={field.value}
                                             {...field}
                                         />
                                     </FormControl>
@@ -228,22 +163,24 @@ const AddressForm: React.FC<AddressFormProps> = ({
 
                         )}
                     />
-                    <FormField
-                        control={form.control}
-                        name="isDefault"
-                        render={({ field }) => (
-                            <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4 w-fit">
-                                <FormControl>
-                                    <Checkbox
-                                        checked={field.value}
-                                        onCheckedChange={field.onChange}
-                                    />
-                                </FormControl>
-                                <FormLabel>Set as default address</FormLabel>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    {!initialData?.isDefault && (
+                        <FormField
+                            control={form.control}
+                            name="isDefault"
+                            render={({ field }) => (
+                                <FormItem className="flex flex-row items-center space-x-3 space-y-0 rounded-md border p-4 w-fit">
+                                    <FormControl>
+                                        <Checkbox
+                                            checked={field.value}
+                                            onCheckedChange={field.onChange}
+                                        />
+                                    </FormControl>
+                                    <FormLabel>Set as default address</FormLabel>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    )}
                     <Button
                         disabled={loading}
                         className="ml-auto"
