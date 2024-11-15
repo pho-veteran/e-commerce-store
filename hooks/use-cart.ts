@@ -95,12 +95,15 @@ const useCart = create(
                 sizeId: string
             ) => {
                 const currentItems = get().items;
+                const itemToRemove = currentItems.find(
+                    (item) =>
+                        item.product.id === productId &&
+                        item.size.id === sizeId &&
+                        item.color.id === colorId
+                );
                 set({
                     items: currentItems.filter(
-                        (item) =>
-                            item.product.id !== productId &&
-                            item.size.id !== sizeId &&
-                            item.color.id !== colorId
+                        (item) => item !== itemToRemove
                     ),
                 });
                 toast("Item removed from cart", { icon: "🗑️" });

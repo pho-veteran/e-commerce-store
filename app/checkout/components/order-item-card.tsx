@@ -1,14 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { X } from "lucide-react";
 
-import IconButton from "@/components/ui/icon-button";
 import Currency from "@/components/ui/currency";
-import useCart from "@/hooks/use-cart";
 import { OrderItem } from "@/types";
-import ItemQuantity from "@/components/ui/item-quantity";
-import Link from "next/link";
 
 interface OrderItemCardProps {
     data: OrderItem;
@@ -27,7 +22,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({ data }) => {
             </div>
             <div className="relative ml-4 flex flex-1 flex-col justify-between sm:ml-6">
                 <div>
-                    <p className="text-xl font-semibold text-black hover:underline underline-offset-3">
+                    <p className="text-xl font-semibold text-black">
                         {data.product.name}
                     </p>
                     <p className="text-sm">{data.product.category.name}</p>
