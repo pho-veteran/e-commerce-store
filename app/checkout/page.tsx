@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Address } from "@prisma/client";
 
 import Container from "@/components/ui/container";
@@ -15,7 +15,7 @@ const CheckoutPage = () => {
     const [loading, setLoading] = useState(false);
     const [selectedAddress, setSelectedAddress] = useState<Address | null>(null);
     const [orderMessage, setOrderMessage] = useState<string>("");
-    const [paymentMethod, setPaymentMethod] = useState<string>("cod");
+    const [paymentMethod, setPaymentMethod] = useState<string>("COD");
 
     if (cart.items.length === 0) {
         return (
@@ -64,6 +64,7 @@ const CheckoutPage = () => {
                             <SummarySection 
                                 selectedAddress={selectedAddress}
                                 orderMessage={orderMessage}
+                                paymentMethod={paymentMethod}
                                 items={cart.items}
                             />
                         </div>

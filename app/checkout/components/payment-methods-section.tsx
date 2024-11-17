@@ -1,4 +1,3 @@
-import { RadioGroup } from "@/components/ui/radio-group";
 import { CreditCard } from "lucide-react";
 import PaymentMethodItem from "./payment-method-item";
 
@@ -9,24 +8,25 @@ interface PaymentMethodSectionProps {
 
 const paymentMethods = [
     {
-        value: "cod",
-        iconUrl: "/payment-method-imgs/cod.png",
+        value: "COD",
+        icon: 
+            <img src="/payment-method-imgs/cod.png" alt="Cash on Delivery" className="w-12 h-12" />,
         label: "Cash on Delivery"
     },
     {
-        value: "qr_code",
-        iconUrl: "/payment-method-imgs/vnpay.png",
-        label: "VNPay QR"
+        value: "VNPAYEWALLET",
+        icon: <img src="/payment-method-imgs/vnpay.png" alt="VNPay EWallet" className="w-12 h-12" />,
+        label: "VNPay EWallet"
     },
     {
-        value: "credit_card",
-        iconUrl: "/payment-method-imgs/credit-card.png",
-        label: "Credit Card"
-    },
-    {
-        value: "atm_card",
-        iconUrl: "/payment-method-imgs/atm.png",
-        label: "ATM Card"
+        value: "CARD",
+        icon: 
+            <div className="flex gap-x-2 items-center">
+                <img src="/payment-method-imgs/credit-card.png" alt="Credit Card" className="w-12 h-12" />
+                <span className="text-2xl text-neutral-400">/</span>
+                <img src="/payment-method-imgs/atm.png" alt="ATM Card" className="w-12 h-12" />
+            </div>,
+        label: "Credit Card / ATM Card"
     }
 ]
 
@@ -34,6 +34,11 @@ const PaymentMethodSection: React.FC<PaymentMethodSectionProps> = ({
     paymentMethod,
     setPaymentMethod
 }) => {
+
+    const onClick = (value: string) => {
+        setPaymentMethod(value);
+    }
+
     return (
         <div className="bg-white w-full rounded-md">
             <div className="px-6 py-4">
@@ -42,22 +47,22 @@ const PaymentMethodSection: React.FC<PaymentMethodSectionProps> = ({
                         size={24}
                         className="text-primary-500"
                     />
-                    <p className="font-semibold text-lg">Payment Method</p>
+                    <p className="font-semibold text-lg">Select Payment Method</p>
                 </div>
-                <RadioGroup
-                    value={paymentMethod}
-                    onValueChange={(value) => setPaymentMethod(value)}
-                    className="flex flex-col gap-y-4 mt-8"
+                <div
+                    className="grid md:grid-cols-3 gap-4 my-8"
                 >
                     {paymentMethods.map((method) => (
                         <PaymentMethodItem
                             key={method.value}
-                            value={method.value}
-                            iconUrl={method.iconUrl}
+                            icon={method.icon}
                             label={method.label}
+                            value={method.value}
+                            onClick={onClick}
+                            isActive={paymentMethod === method.value}
                         />
                     ))}
-                </RadioGroup>
+                </div>
             </div>
         </div>
     );

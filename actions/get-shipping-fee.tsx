@@ -1,7 +1,7 @@
 import axios from "axios";
 import qs from "query-string"
 
-const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/shipping-fee`;
+const URL = `${process.env.NEXT_PUBLIC_BASE_URL}/api/shipping/fee`;
 
 interface Query {
     pick_address_id?: number;

@@ -4,18 +4,21 @@ import { Button } from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import { OrderItem } from "@/types";
 import { Address } from "@prisma/client";
+import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
 interface SummarySectionProps {
     selectedAddress: Address | null;
     orderMessage: string;
+    paymentMethod: string;
     items: OrderItem[];
 }
 
 const SummarySection: React.FC<SummarySectionProps> = ({
     selectedAddress,
     orderMessage,
+    paymentMethod,
     items
 }) => {
     const [shippingFee, setShippingFee] = useState<number | null>(null);
@@ -28,15 +31,16 @@ const SummarySection: React.FC<SummarySectionProps> = ({
         if (!selectedAddress) return;
 
         const generalAddressArray = selectedAddress.generalAddress.split(", ");
-        const province = generalAddressArray[generalAddressArray.length - 1];
-        const district = generalAddressArray[generalAddressArray.length - 2];
-        const ward = generalAddressArray[generalAddressArray.length - 3];
+
+        const province = generalAddressArray.pop() || "";
+        const district = generalAddressArray.pop() || "";
+        const ward = generalAddressArray.pop() || undefined;
 
         try {
             const calShippingFeeRes = await getShippingFee({
                 province,
                 district,
-                ward: ward || undefined,
+                ward,
                 weight: 500,
             });
             setShippingFee(calShippingFeeRes.fee.fee);
@@ -48,6 +52,37 @@ const SummarySection: React.FC<SummarySectionProps> = ({
     useEffect(() => {
         calculateShippingFee();
     }, [selectedAddress]);
+
+    const onPlaceOrder = async () => {
+        try {
+            const ipResponse = await axios.get('https://api.ipify.org?format=json');
+            const clientIp = ipResponse.data.ip;
+
+            const response = await axios.post(`http://localhost:3000/api/66ff727081bb6421ffe643e1/checkout`, {
+                address: {
+                    name: selectedAddress?.name,
+                    phone: selectedAddress?.phone,
+                    generalAddress: selectedAddress?.generalAddress,
+                    streetAddress: selectedAddress?.streetAddress,
+                    type: selectedAddress?.type,
+                },
+                orderMessage,
+                paymentMethod,
+                orderItems: items.map((item) => ({
+                    productId: item.product.id,
+                    colorId: item.color.id,
+                    sizeId: item.size.id,
+                    quantity: item.quantity,
+                })),
+                totalPrice: subTotal + (shippingFee || 0),
+                clientIp,
+            });
+
+            window.location = response.data.url;
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <>
@@ -102,6 +137,8 @@ const SummarySection: React.FC<SummarySectionProps> = ({
                     <Button
                         variant={"destructive"}
                         className="w-full text-base h-10"
+                        disabled={!selectedAddress || !shippingFee}
+                        onClick={onPlaceOrder}
                     >
                         Place Order
                     </Button>
