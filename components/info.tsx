@@ -77,7 +77,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     onRemove={() => { }}
                 />
                 <Button
-                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2 text-base hover:bg-neutral-100"
+                    className="flex items-center gap-x-2 w-full rounded-md justify-center bg-transparent text-black border border-black py-2 text-base hover:bg-neutral-100 h-10"
                     onClick={() => {
                         if (size && color) {
                             wishlist.removeItem(data.id);
@@ -92,7 +92,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
             <div className="mt-4">
                 {wishlist.isWishlist(data.id) ? (
                     <Button
-                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base"
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base h-10"
                         onClick={() => {
                             wishlist.removeItem(data.id);
                         }}
@@ -102,7 +102,7 @@ const Info: React.FC<InfoProps> = ({ data }) => {
                     </Button>
                 ) : (
                     <Button
-                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base"
+                        className="flex items-center gap-x-2 w-full rounded-md justify-center text-base h-10"
                         onClick={() => {
                             wishlist.addItem(data);
                         }}

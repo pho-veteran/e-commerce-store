@@ -51,19 +51,21 @@ const CartHover = ({
                     </div>
                 )}
 
-                <div className="flex justify-center items-center mt-4 gap-x-2">
-                    <p className="text-black">Cart total: </p>
-                    <Currency
-                        value={subTotal}
-                        className="text-base text-blue-400"
-                    />
-                </div>
+                {items.length !== 0 && (
+                    <div className="flex justify-center items-center mt-4 gap-x-2">
+                        <p className="text-black">Cart total: </p>
+                        <Currency
+                            value={subTotal}
+                            className="text-base text-blue-400"
+                        />
+                    </div>
+                )}
 
                 <Button
                     className="w-full mt-4 rounded-md text-base h-10"
                     onClick={() => {
                         router.push("/checkout");
-                    }} 
+                    }}
                     disabled={items.length === 0}
                 >
                     Checkout

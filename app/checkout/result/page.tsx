@@ -1,7 +1,6 @@
 "use client"
 
 import useCart from "@/hooks/use-cart";
-import { redirect } from "next/dist/server/api-utils";
 import { useRouter } from "next/navigation";
 
 interface CheckoutResultProps {
@@ -28,7 +27,7 @@ const CheckoutResult: React.FC<CheckoutResultProps> = ({ searchParams }) => {
     const cart = useCart();
     const router = useRouter();
     if (searchParams.vnp_ResponseCode === "00" || searchParams.cod) {
-        cart.removeAll();
+        cart.removeAll();   
         router.push("/account/orders");
     } else {
         return <div>Invalid Payment</div>
