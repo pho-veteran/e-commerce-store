@@ -1,6 +1,6 @@
 import { OrderItem } from "@/types";
 import { Package } from "lucide-react";
-import OrderItemCard from "./order-item-card";
+import OrderItemCard from "@/components/ui/order-item-card";
 import { Textarea } from "@/components/ui/textarea";
 
 interface OrderItemsSectionProps {

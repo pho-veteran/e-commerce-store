@@ -1,6 +1,7 @@
 "use client"
 
-import useCart from "@/hooks/use-cart";
+import { Button } from "@/components/ui/button";
+import { Ban, CircleEllipsis } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface CheckoutResultProps {
@@ -24,15 +25,39 @@ interface CheckoutResultProps {
 }
 
 const CheckoutResult: React.FC<CheckoutResultProps> = ({ searchParams }) => {
-    const cart = useCart();
     const router = useRouter();
     if (searchParams.vnp_ResponseCode === "00" || searchParams.cod) {
-        cart.removeAll();   
         router.push("/account/orders");
+        router.refresh();
     } else {
-        return <div>Invalid Payment</div>
+        return (
+            <div className="w-full h-96 flex justify-center items-center bg-neutral-100 p-8">
+                <div className="bg-white rounded-md py-6 flex flex-col items-center px-12 max-w-2xl">
+                    <Ban size={56} className="text-red-500"/>
+                    <p className="mt-4 text-lg font-semibold text-center">Payment Failed</p>
+                    <p className="mt-1 text-neutral-600 text-center">Please try again to process the payment again in orders history or contact support if the issue persists.</p>
+                    <Button
+                        className="mt-6"
+                        onClick={() => {
+                            router.push("/account/orders");
+                            router.refresh();
+                        }}
+                    >
+                        Go to Orders History
+                    </Button>
+                </div>
+            </div>
+        )
     }
 
-    return <div>Processing</div>
+    return (
+        <div className="w-full h-96 flex justify-center items-center bg-neutral-100 p-8">
+            <div className="bg-white rounded-md py-6 flex flex-col items-center px-12 max-w-2xl">
+                <CircleEllipsis size={56} className="text-blue-600"/>
+                <p className="mt-4 text-lg font-semibold">Payment Processing</p>
+                <p className="mt-1 text-neutral-600 text-center">Your payment is being processed. Please wait a moment.</p>
+            </div>
+        </div>
+    )
 }
 export default CheckoutResult;

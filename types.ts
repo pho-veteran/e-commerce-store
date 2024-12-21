@@ -82,3 +82,27 @@ export interface Ward {
     division_type: string,
     short_codename: string
 }
+
+export interface Order {
+    id: string;
+    storeId: string;
+    customerId: string;
+    orderItems: OrderItem[];
+    orderMessage: string;
+    name: string;
+    phone: string;
+    address: string;
+    addressType: string;
+    shippingFee: number,
+    paymentMethod: string;
+    orderStatus: string;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface OrderItem {
+    product: Product;
+    color: Color;
+    size: Size;
+    quantity: number;
+}

@@ -5,6 +5,7 @@ import Modal from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Address } from "@prisma/client";
 import AddressSelectItem from "./address-select-item";
+import AddressModalHeader from "./address-modal-header";
 
 interface AddressSelectModalProps {
     isOpen: boolean;
@@ -36,9 +37,9 @@ export const AddressSelectModal: React.FC<AddressSelectModalProps> = ({
             onClose={onClose}
         >
             <div className="flex flex-col">
-                <div className="pt-6 space-x-2 flex items-center">
-                    <h3 className="text-lg font-semibold">Select delivery address</h3>
-                    <div className="w-full h-64 overflow-y-auto overflow-x-hidden flex flex-col gap-2">
+                <div className="py-6 space-x-2 flex items-center">
+                    <AddressModalHeader />
+                    <div className="w-full max-h-96 overflow-y-auto overflow-x-hidden flex flex-col gap-2">
                         {formattedAddresses.map((address) => (
                             <AddressSelectItem
                                 key={address.id}

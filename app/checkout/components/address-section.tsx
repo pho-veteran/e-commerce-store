@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react";
 import { AddressSelectModal } from "./address-select-modal";
 import { Badge } from "@/components/ui/badge";
 import useAddressModal from "@/hooks/use-address-modal";
+import StatusBadge from "@/components/ui/status-badge";
 
 interface AddressSectionProps {
     loading: boolean;
@@ -87,10 +88,12 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                                     <p className="ml-2 text-sm">{selectedAddress.phone}</p>
                                 </div>
                                 <div className="flex mt-2 items-center">
-                                    <Badge
-                                        variant="outline"
-                                        className="bg-green-100 text-green-600 font-bold border-none"
-                                    >{selectedAddress.type}</Badge>
+                                    <StatusBadge
+                                        data={{
+                                            label: selectedAddress.type,
+                                            className: "bg-green-100 text-green-600"
+                                        }}
+                                    />
                                     <p
                                         className="text-neutral-400 ml-2 text-sm"
                                     >{`${selectedAddress.streetAddress}, ${selectedAddress.generalAddress}`}</p>

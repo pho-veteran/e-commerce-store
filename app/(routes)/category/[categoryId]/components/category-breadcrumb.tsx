@@ -1,6 +1,5 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Category } from "@/types";
-import Link from "next/link";
 
 interface CategoryBreadcrumbProps {
     data: Category;

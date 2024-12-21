@@ -1,8 +1,11 @@
 "use client"
+
 import getShippingFee from "@/actions/get-shipping-fee";
 import { Button } from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
+import useCart from "@/hooks/use-cart";
 import { OrderItem } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import { Address } from "@prisma/client";
 import axios from "axios";
 import Link from "next/link";
@@ -13,15 +16,19 @@ interface SummarySectionProps {
     orderMessage: string;
     paymentMethod: string;
     items: OrderItem[];
+    backendUrl: string;
 }
 
 const SummarySection: React.FC<SummarySectionProps> = ({
     selectedAddress,
     orderMessage,
     paymentMethod,
-    items
+    items,
+    backendUrl
 }) => {
     const [shippingFee, setShippingFee] = useState<number | null>(null);
+    const { user } = useUser();
+    const cart = useCart();
 
     const subTotal = items.reduce((acc, item) => {
         return acc + Number(item.product.price) * item.quantity;
@@ -58,7 +65,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
             const ipResponse = await axios.get('https://api.ipify.org?format=json');
             const clientIp = ipResponse.data.ip;
 
-            const response = await axios.post(`http://localhost:3000/api/66ff727081bb6421ffe643e1/checkout`, {
+            const response = await axios.post(`${backendUrl}/checkout`, {
                 address: {
                     name: selectedAddress?.name,
                     phone: selectedAddress?.phone,
@@ -74,11 +81,15 @@ const SummarySection: React.FC<SummarySectionProps> = ({
                     sizeId: item.size.id,
                     quantity: item.quantity,
                 })),
-                totalPrice: subTotal + (shippingFee || 0),
+                shippingFee: shippingFee || 0,
+                customerId: user?.id,
+                addressType: selectedAddress?.type,
                 clientIp,
             });
 
-            window.location = response.data.url;
+            cart.removeAll();
+
+            window.location.href = response.data.url;
         } catch (error) {
             console.log(error);
         }

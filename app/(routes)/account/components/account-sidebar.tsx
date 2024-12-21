@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/components/ui/button";
+
 import { cn } from "@/lib/utils";
 import { useUser } from "@clerk/nextjs";
 import { MapPinHouse, NotebookText, Settings2 } from "lucide-react";
@@ -32,8 +32,8 @@ const AccountSidebar = () => {
         },
     ]
     return (
-        <div className="flex flex-col max-w-56 min-w-fit">
-            <div className="flex gap-x-2 items-center w-full">
+        <div className="flex lg:block max-w-56 min-w-fit">
+            <div className="gap-x-2 items-center w-full hidden lg:flex">
                 <Image
                     src={user?.imageUrl || "/default-image.png"}
                     alt={user?.fullName || "User"}
@@ -41,14 +41,13 @@ const AccountSidebar = () => {
                     height={48}
                     className="rounded-full"
                 />
-                <div className="flex flex-col">
+                <div className="flex-col flex">
                     <h3 className="text-md font-semibold">{user?.fullName}</h3>
                     <p className="text-neutral-500 text-ellipsis overflow-hidden text-sm">{user?.primaryEmailAddress?.emailAddress}</p>
                 </div>
             </div>
-            <hr className="my-6" />
-
-            <nav>
+            <hr className="my-6 hidden lg:block" />
+            <nav className="flex lg:block">
                 {routes.map((route) => (
                     <button
                         key={route.label}

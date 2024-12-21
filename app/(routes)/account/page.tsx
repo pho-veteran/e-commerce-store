@@ -2,7 +2,7 @@ import { UserProfile } from "@clerk/nextjs";
 
 const AccountPage = () => {
     return (
-        <div className="px-8">
+        <div className="px-2 mx-auto">
             <UserProfile 
                 routing="hash"
             />

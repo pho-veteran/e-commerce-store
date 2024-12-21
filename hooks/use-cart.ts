@@ -109,8 +109,10 @@ const useCart = create(
                 toast("Item removed from cart", { icon: "🗑️" });
             },
             removeAll: () => {
+                if (get().items.length === 0) {
+                    return;
+                }
                 set({ items: [] });
-                toast("All items removed from cart", { icon: "🗑️" });
             },
         }),
         {

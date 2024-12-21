@@ -26,11 +26,11 @@ const AddressesPage = async () => {
             <div className="my-4 w-full">
                 <AddAddressButton />
             </div>
-            <div className="space-y-4">
+            <ul className="space-y-4">
                 {formattedAddresses.map((address) => (
                     <AddressCard key={address.id} address={address} />
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }

@@ -55,7 +55,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
     };
 
     return (
-        <div className="w-full bg-white rounded-md p-4 space-y-2 text-sm">
+        <li className="w-full bg-white rounded-md p-4 space-y-2 text-sm">
             <div className="flex items-center gap-x-4">
                 <div>
                     <h5
@@ -109,7 +109,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
                     </button>
                 )}
             </div>
-        </div>
+        </li>
     );
 }
 

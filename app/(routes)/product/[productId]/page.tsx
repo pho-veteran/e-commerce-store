@@ -11,6 +11,8 @@ import Info from "@/components/info";
 import ProductBreadcrumb from "./components/product-breadcrumb";
 import SocialShare from "@/components/ui/social-share";
 
+export const revalidate = 0;
+
 interface ProductPageProps {
     params: {
         productId: string;
