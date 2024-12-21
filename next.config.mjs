@@ -13,8 +13,11 @@ const nextConfig = {
                 hostname: "img.clerk.com",
                 port: "",
                 pathname: "/**",
-            }
+            },
         ],
+    },
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
     },
 };
 

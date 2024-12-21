@@ -59,7 +59,7 @@ export interface OrderItem {
 
 export interface Province {
     name: string,
-    code: Number,
+    code: number,
     codename: string,
     division_type: string,
     phone_code: string,
@@ -68,7 +68,7 @@ export interface Province {
 
 export interface District {
     name: string,
-    code: Number,
+    code: number,
     codename: string,
     division_type: string,
     short_codename: string,
@@ -77,7 +77,7 @@ export interface District {
 
 export interface Ward {
     name: string,
-    code: Number,
+    code: number,
     codename: string,
     division_type: string,
     short_codename: string
