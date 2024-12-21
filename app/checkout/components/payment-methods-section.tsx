@@ -1,5 +1,6 @@
 import { CreditCard } from "lucide-react";
 import PaymentMethodItem from "./payment-method-item";
+import Image from "next/image";
 
 interface PaymentMethodSectionProps {
     paymentMethod: string;
@@ -10,21 +11,21 @@ const paymentMethods = [
     {
         value: "COD",
         icon: 
-            <img src="/payment-method-imgs/cod.png" alt="Cash on Delivery" className="w-12 h-12" />,
+            <Image src="/payment-method-imgs/cod.png" alt="Cash on Delivery" width={48} height={48} />,
         label: "Cash on Delivery"
     },
     {
         value: "VNPAYEWALLET",
-        icon: <img src="/payment-method-imgs/vnpay.png" alt="VNPay EWallet" className="w-12 h-12" />,
+        icon: <Image src="/payment-method-imgs/vnpay.png" alt="VNPay EWallet" width={48} height={48} />,
         label: "VNPay EWallet"
     },
     {
         value: "CARD",
         icon: 
             <div className="flex gap-x-2 items-center">
-                <img src="/payment-method-imgs/credit-card.png" alt="Credit Card" className="w-12 h-12" />
+                <Image src="/payment-method-imgs/credit-card.png" alt="Credit Card" width={48} height={48} />
                 <span className="text-2xl text-neutral-400">/</span>
-                <img src="/payment-method-imgs/atm.png" alt="ATM Card" className="w-12 h-12" />
+                <Image src="/payment-method-imgs/atm.png" alt="ATM Card" width={48} height={48} />
             </div>,
         label: "Credit Card / ATM Card"
     }

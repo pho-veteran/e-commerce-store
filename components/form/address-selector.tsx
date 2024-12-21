@@ -109,4 +109,6 @@ const AddressSelector = forwardRef<HTMLButtonElement, AddressSelectorProps>(({
     );
 });
 
+AddressSelector.displayName = "AddressSelector";
+
 export default AddressSelector;

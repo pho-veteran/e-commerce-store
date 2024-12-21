@@ -30,6 +30,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong.");
+            console.error(error);
         } finally {
             confirmModal.setLoading(false);
             confirmModal.onClose();
@@ -48,6 +49,7 @@ const AddressCard: React.FC<AddressCardProps> = ({
             router.refresh();
         } catch (error) {
             toast.error("Something went wrong.");
+            console.error(error);
         } finally {
             confirmModal.setLoading(false);
             confirmModal.onClose();

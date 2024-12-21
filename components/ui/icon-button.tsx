@@ -23,4 +23,6 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(({ onClick, ic
     );
 });
 
+IconButton.displayName = "IconButton";
+
 export default IconButton;

@@ -11,7 +11,6 @@ import CartHoverCard from "./ui/cart-hover-card"
 import { Button } from "@/components/ui/button";
 import { Ellipsis } from "lucide-react"
 import Currency from "./ui/currency"
-import { cn } from "@/lib/utils"
 
 const CartHover = ({
     children

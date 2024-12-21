@@ -21,9 +21,7 @@ interface MultiSelectProps
     extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     options: string[];
     onValueChange: (value: string) => void;
-    defaultValue?: string;
     placeholder?: string;
-    asChild?: boolean;
     className?: string;
     value?: string;
 }
@@ -35,9 +33,7 @@ const SearchableSelector = forwardRef<
     ({
         options,
         onValueChange,
-        defaultValue,
         placeholder,
-        asChild,
         className,
         value,
         ...props
@@ -104,5 +100,6 @@ const SearchableSelector = forwardRef<
     }
 );
 
+SearchableSelector.displayName = "SearchableSelector";
 
 export default SearchableSelector;

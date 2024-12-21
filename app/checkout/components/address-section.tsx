@@ -4,7 +4,6 @@ import { Address } from "@prisma/client";
 import { MapPin } from "lucide-react";
 
 import { AddressSelectModal } from "./address-select-modal";
-import { Badge } from "@/components/ui/badge";
 import useAddressModal from "@/hooks/use-address-modal";
 import StatusBadge from "@/components/ui/status-badge";
 
@@ -75,7 +74,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                     <div className="mt-4">
                         {!selectedAddress ? (
                             <div className="flex space-x-2 items-center">
-                                <p className="text-sm text-neutral-400">You don't have any address!</p>
+                                <p className="text-sm text-neutral-400">You don&apos;t have any address!</p>
                                 <button
                                     onClick={() => addressModal.onOpen()}
                                     className="text-blue-500 font-semibold text-sm"
@@ -104,6 +103,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                                             setChangeAddressOpen(true)
                                         }
                                         className="text-blue-500 font-semibold text-sm"
+                                        disabled={loading}
                                     >Change Address</button>
                                 </div>
                             </div>

@@ -32,7 +32,7 @@ const CheckoutClient: React.FC<CheckoutClientProps> = ({
                         <div className="col-span-8 space-y-8">
                             <div className="bg-white rounded-md p-8">
                                 <h1 className="text-2xl font-semibold text-black">Your cart is empty</h1>
-                                <p className="text-neutral-400 mt-2">Looks like you haven't added anything to your cart yet</p>
+                                <p className="text-neutral-400 mt-2">Looks like you haven&apos;t added anything to your cart yet</p>
                                 <Link
                                     href="/"
                                     className="mt-4 text-blue-500 hover:underline block"

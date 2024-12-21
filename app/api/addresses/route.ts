@@ -9,14 +9,15 @@ export async function POST(
         const { userId }: { userId: string | null } = await auth();
         const body = await req.json();
 
-        let {
+        const {
             name,
             phone,
             generalAddress,
             streetAddress,
             type,
-            isDefault,
         } = body;
+
+        let { isDefault } = body;
 
         if (!userId) {
             return new NextResponse("Unauthorized", { status: 401 });
