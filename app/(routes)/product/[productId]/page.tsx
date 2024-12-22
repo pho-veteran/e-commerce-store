@@ -10,12 +10,33 @@ import Gallery from "@/components/gallery"
 import Info from "@/components/info";
 import ProductBreadcrumb from "./components/product-breadcrumb";
 import SocialShare from "@/components/ui/social-share";
+import { Metadata } from "next";
 
 export const revalidate = 0;
 
 interface ProductPageProps {
     params: {
         productId: string;
+    };
+}
+
+export async function generateMetadata(
+    { params }: ProductPageProps
+): Promise<Metadata> {
+    if (!ObjectId.isValid(params.productId)) {
+        redirect("/");
+    }
+
+    const product = await getProduct(params.productId);
+
+    return {
+        title: `VStore | ${product.name}`,
+        description: `Details and purchase options for ${product.name}.`,
+        openGraph: {
+            title: product.name,
+            description: `Explore more about ${product.name}.`,
+            images: product.images.map((image: { url: string }) => image.url),
+        },
     };
 }
 

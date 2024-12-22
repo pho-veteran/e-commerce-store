@@ -4,8 +4,8 @@ import { Address } from "@prisma/client";
 import { MapPin } from "lucide-react";
 
 import { AddressSelectModal } from "./address-select-modal";
-import useAddressModal from "@/hooks/use-address-modal";
 import StatusBadge from "@/components/ui/status-badge";
+import { useRouter } from "next/navigation";
 
 interface AddressSectionProps {
     loading: boolean;
@@ -21,8 +21,8 @@ const AddressSection: React.FC<AddressSectionProps> = ({
     setSelectedAddress,
 }) => {
     const [addresses, setAddresses] = useState<Address[]>([]);
-    const addressModal = useAddressModal();
     const [changeAddressOpen, setChangeAddressOpen] = useState(false);
+    const router = useRouter();
 
     useEffect(() => {
         const fetchAddresses = async () => {
@@ -76,7 +76,7 @@ const AddressSection: React.FC<AddressSectionProps> = ({
                             <div className="flex space-x-2 items-center">
                                 <p className="text-sm text-neutral-400">You don&apos;t have any address!</p>
                                 <button
-                                    onClick={() => addressModal.onOpen()}
+                                    onClick={() => router.push("/account/addresses")}
                                     className="text-blue-500 font-semibold text-sm"
                                 >Add Address</button>
                             </div>
