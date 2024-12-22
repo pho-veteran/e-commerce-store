@@ -59,11 +59,17 @@ const OrderStatusSection: React.FC<OrderStatusSectionProps> = ({
                 </div>
 
                 {state.value === "NOTPAID" && (
-                    <Button
-                        className="mt-4 w-full"
-                        variant="destructive"
-                        onClick={onProceedToPayment}
-                    >Proceed to Payment</Button>
+                    <div className="flex gap-x-2">
+                        <Button
+                            className="mt-4 w-full"
+                            variant="destructive"
+                            onClick={onCancelOrder}
+                        >Cancel Order</Button>
+                        <Button
+                            className="mt-4 w-full bg-blue-600 text-white hover:bg-blue-500"
+                            onClick={onProceedToPayment}
+                        >Proceed to Payment</Button>
+                    </div>
                 )}
 
                 {state.value === "PENDING" && data.paymentMethod === "COD" && (

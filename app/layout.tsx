@@ -10,8 +10,8 @@ import { ClerkProvider } from "@clerk/nextjs";
 const font = Mulish({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "E-commerce Store",
-    description: "Simple e-commerce store",
+    title: "VStore",
+    description: "VStore E-Commerce Platform",
 };
 
 export default function RootLayout({
