@@ -13,9 +13,13 @@ import useWishlist from "@/hooks/use-wishlist";
 
 interface ProductCardProps {
     data: Product;
+    backendUrl: string;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ 
+    data,
+    backendUrl, 
+}) => {
     const [isMounted, setIsMounted] = useState(false);
 
     useEffect(() => {
@@ -34,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ data }) => {
 
     const onPreview: MouseEventHandler<HTMLButtonElement> = (e) => {
         e.stopPropagation();
-        previewModal.onOpen(data);
+        previewModal.onOpen(data, backendUrl);
     }
 
     const onAddToWishlist: MouseEventHandler<HTMLButtonElement> = (e) => {

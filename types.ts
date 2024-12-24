@@ -18,6 +18,7 @@ export interface Product {
     isFeatured: boolean;
     productSizes: ProductSize[];
     productColors: ProductColor[];
+    stock: number;
     images: Image[];
 }
 

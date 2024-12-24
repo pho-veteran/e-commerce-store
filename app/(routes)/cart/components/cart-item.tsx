@@ -53,7 +53,7 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                         <div className="flex gap-x-2 items-center">
                             <p className="text-gray-500">{data.color.name}</p>
                             <div
-                                className="h-4 w-4 rounded-full"
+                                className="h-4 w-4 rounded-full border border-neutral-600"
                                 style={{ backgroundColor: data.color.value }}
                             ></div>
                         </div>
@@ -63,11 +63,12 @@ const CartItem: React.FC<CartItemProps> = ({ data }) => {
                     </div>
                     <Currency value={Number(data.product.price) * data.quantity} className="sm:text-lg mt-2 text-base" />
                 </div>
-                <div className="self-start mt-2">
+                <div className="self-start mt-2 flex items-center gap-x-2 sm:block flex-row-reverse">
+                    <span className="text-neutral-400 text-sm">{`Stock: ${data.product.stock}`}</span>
                     <ItemQuantity
-                        data={data.quantity}
-                        onQuantityChange={onQuantityChange}
-                        onRemove={onRemove}
+                        quantity={data.quantity}
+                        setQuantity={onQuantityChange}
+                        maxQuantity={data.product.stock}
                     />
                 </div>
             </div>

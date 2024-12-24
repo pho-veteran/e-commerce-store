@@ -59,7 +59,7 @@ const Footer = () => {
                     />
                     <Image
                         src="/payment-method-imgs/vnpay-full.png"
-                        alt="Giao Hàng Tiết Kiệm"
+                        alt="VNPay"
                         width={180}
                         height={50}
                         className="h-auto w-auto max-h-8"

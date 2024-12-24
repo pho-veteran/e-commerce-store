@@ -23,6 +23,12 @@ const SearchPage: React.FC<SearchProps> = async ({ searchParams }) => {
         name: name,
     });
 
+    const backendUrl = process.env.PUBLIC_STORE_URL;
+
+    if (!backendUrl) {
+        throw new Error("Backend URL is not defined");
+    }
+
     return (
         <Container>
             <div className="flex flex-col px-4 sm:px-6 lg:px-8 py-16">
@@ -45,6 +51,7 @@ const SearchPage: React.FC<SearchProps> = async ({ searchParams }) => {
                                 <ProductCard
                                     key={product.id}
                                     data={product}
+                                    backendUrl={backendUrl}
                                 />
                             ))}
                         </div>

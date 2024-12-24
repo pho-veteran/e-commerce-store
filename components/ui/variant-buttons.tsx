@@ -21,7 +21,7 @@ const VariantButtons: React.FC<VariantButtonsProps> = ({
                 <div key={item.id} className="flex items-center">
                     <Button
                         className={cn(
-                            "rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300 flex gap-x-2 items-center hover:border-black hover:bg-transparent shadow-none",
+                            "rounded-md text-sm text-gray-800 p-2 bg-white border border-gray-300 flex gap-x-2 items-center hover:border-black hover:bg-neutral-100/90 shadow-none",
                             selectedValue === item.id &&
                             "border-black border-2"
                         )}
@@ -29,7 +29,7 @@ const VariantButtons: React.FC<VariantButtonsProps> = ({
                     >
                         {type === "color" && (
                             <div
-                                className="h-4 w-4 rounded-full"
+                                className="h-4 w-4 rounded-full border border-neutral-600"
                                 style={{ backgroundColor: item.value }}
                             />
                         )}

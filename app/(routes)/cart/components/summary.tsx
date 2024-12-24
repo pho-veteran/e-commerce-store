@@ -1,36 +1,53 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
-import toast from "react-hot-toast";
+import { useEffect } from "react";
 
-const Summary = () => {
-    const searchParams = useSearchParams();
+interface SummaryProps {
+    backendUrl: string;
+}
+
+const Summary: React.FC<SummaryProps> = ({
+    backendUrl
+}) => {
     const router = useRouter();
+    const cart = useCart();
 
-    const items = useCart((state) => state.items);
-    const removeAll = useCart((state) => state.removeAll);
+    const verifyCart = async (): Promise<boolean> => {
+        try {
+            const productsId = cart.items.map((item) => item.product.id);
+            const productsStock = await axios.post(`${backendUrl}/products`, {
+                productsId: productsId,
+            });
+            
+            const result = cart.verifyCart(productsStock.data);
+            return result;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
 
     useEffect(() => {
-        if (searchParams.get("success")) {
-            toast.success("Order placed successfully");
-            removeAll();
-        }
+        verifyCart();
+    }, []);
 
-        if (searchParams.get("canceled")) {
-            toast.error("Order cancelled");
-        }
-    }, [searchParams, removeAll]);
+    const items = useCart((state) => state.items);
 
     const totalPrice = items.reduce((acc, item) => {
         return acc + Number(item.product.price) * item.quantity;
     }, 0)
 
     const onCheckout = async () => {
+        const validCart = await verifyCart();
+        if (!validCart) {
+            return;
+        }
         router.push("/checkout");
     }
 

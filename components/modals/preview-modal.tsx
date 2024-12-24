@@ -8,8 +8,9 @@ import Info from "@/components/info";
 const PreviewModal = () => {
     const previewModal = usePreviewModal();
     const product = usePreviewModal((state) => state.data);
+    const backendUrl = usePreviewModal((state) => state.backendUrl);
 
-    if (!product) {
+    if (!product || !backendUrl) {
         return null;
     }
 
@@ -20,7 +21,10 @@ const PreviewModal = () => {
                     <Gallery images={product.images} />
                 </div>
                 <div className="sm:col-span-8 lg:col-span-7">
-                    <Info data={product} />
+                    <Info 
+                        data={product} 
+                        backendUrl={backendUrl}
+                    />
                 </div>
             </div>
         </Modal>

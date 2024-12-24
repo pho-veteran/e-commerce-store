@@ -20,7 +20,7 @@ interface CheckoutResultProps {
         vnp_TxnRef?: string,
         cod?: string,
         orderId?: string,
-        amount?: string,
+        outOfStock?: string
     }
 }
 
@@ -44,6 +44,25 @@ const CheckoutResult: React.FC<CheckoutResultProps> = ({ searchParams }) => {
                         }}
                     >
                         Go to Orders History
+                    </Button>
+                </div>
+            </div>
+        )
+    } else if (searchParams.outOfStock) {
+        return (
+            <div className="w-full h-96 flex justify-center items-center bg-neutral-100 p-8">
+                <div className="bg-white rounded-md py-6 flex flex-col items-center px-12 max-w-2xl">
+                    <Ban size={56} className="text-red-500" />
+                    <p className="mt-4 text-lg font-semibold text-center">Out of Stock</p>
+                    <p className="mt-1 text-neutral-600 text-center">Some products in your cart are out of stock. Please try again!</p>
+                    <Button
+                        className="mt-6"
+                        onClick={() => {
+                            router.push("/cart");
+                            router.refresh();
+                        }}
+                    >
+                        Go to Cart
                     </Button>
                 </div>
             </div>

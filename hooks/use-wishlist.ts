@@ -23,6 +23,7 @@ interface WishlistStore {
     removeItem: (id: string) => void;
     removeAll: () => void;
     isWishlist: (id: string) => boolean;
+    replaceWishlist: (products: Product[]) => void;
 }
 
 const useWishlist = create(
@@ -55,6 +56,15 @@ const useWishlist = create(
             isWishlist: (id: string) => {
                 const currentItems = get().items;
                 return currentItems.some((item) => item.id === id);
+            },
+            replaceWishlist: (
+                products: Product[]
+            ) => {
+                const currentItems = get().items;
+                if (currentItems.length !== products.length) {
+                    toast("Some item(s) was removed!", { icon: "🌟" });
+                }
+                set({ items: products });
             },
         }),
         {

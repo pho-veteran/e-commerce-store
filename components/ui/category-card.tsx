@@ -22,7 +22,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ data }) => {
                 style={{ backgroundImage: `url(${billboard?.imageUrl})` }}
             >
                 <div className="h-full w-full flex flex-col justify-center items-center text-center gap-y-8">
-                    <div className="font-bold text-2xl max-w-xs">
+                    <div className="font-bold text-2xl max-w-xs bg-white/85 p-2 shadow-md">
                         {billboard?.label}
                     </div>
                 </div>

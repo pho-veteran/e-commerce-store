@@ -9,7 +9,9 @@ import { useUser } from "@clerk/nextjs";
 import { Address } from "@prisma/client";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 interface SummarySectionProps {
     selectedAddress: Address | null;
@@ -29,6 +31,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
     const [shippingFee, setShippingFee] = useState<number | null>(null);
     const { user } = useUser();
     const cart = useCart();
+    const router = useRouter();
 
     const subTotal = items.reduce((acc, item) => {
         return acc + Number(item.product.price) * item.quantity;
@@ -60,8 +63,30 @@ const SummarySection: React.FC<SummarySectionProps> = ({
         calculateShippingFee();
     }, [selectedAddress]);
 
+    const verifyCart = async (): Promise<boolean> => {
+        try {
+            const productsId = cart.items.map((item) => item.product.id);
+            const productsStock = await axios.post(`${backendUrl}/products`, {
+                productsId: productsId,
+            });
+            
+            const result = cart.verifyCart(productsStock.data);
+            return result;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    }
+
     const onPlaceOrder = async () => {
         try {
+            const validCart = await verifyCart();
+            if (!validCart) {
+                router.push("/cart");
+                router.refresh();
+                toast.error("Some items in your cart are no longer available. Please review your cart.");
+                return;
+            }
             const ipResponse = await axios.get('https://api.ipify.org?format=json');
             const clientIp = ipResponse.data.ip;
 

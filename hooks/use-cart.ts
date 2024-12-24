@@ -31,6 +31,14 @@ interface CartStore {
         sizeId: string,
         quantity: number
     ) => void;
+    getQuantity: (productId: string) => number;
+    verifyCart: (
+        productsStock: {
+            id: string;
+            stock: number;
+        }[]
+    ) => boolean;
+    removeItemByProductId: (productId: string) => void;
     removeItem: (productId: string, colorId: string, sizeId: string) => void;
     removeAll: () => void;
 }
@@ -54,11 +62,22 @@ const useCart = create(
                 );
 
                 if (existingItem) {
-                    const updatedItems = currentItems.map((item) =>
-                        item === existingItem
-                            ? { ...item, quantity: item.quantity + quantity }
-                            : item
-                    );
+                    const updatedItems = currentItems.map((item) => {
+                        if (item === existingItem) {
+                            const remainStock =
+                                item.product.stock -
+                                get().getQuantity(item.product.id);
+                            if (quantity > remainStock) {
+                                toast.error("Quantity exceeds available stock");
+                                return item;
+                            }
+                            return {
+                                ...item,
+                                quantity: item.quantity + quantity,
+                            };
+                        }
+                        return item;
+                    });
                     set({ items: updatedItems });
                     toast("Item quantity updated in cart", { icon: "🛒" });
                     return;
@@ -89,6 +108,52 @@ const useCart = create(
                     ),
                 });
             },
+            getQuantity: (productId: string) => {
+                const currentItems = get().items;
+                const matchingItems = currentItems.filter(
+                    (item) => item.product.id === productId
+                );
+                return matchingItems.reduce(
+                    (total, item) => total + item.quantity,
+                    0
+                );
+            },
+            verifyCart: (
+                productsStock: {
+                    id: string;
+                    stock: number;
+                }[]
+            ) => {
+                const currentItems = get().items;
+                const updatedItems = currentItems.filter((item) => {
+                    const product = productsStock.find(
+                        (product) => product.id === item.product.id
+                    );
+                    if (!product || get().getQuantity(item.product.id) > product.stock) {
+                        return false;
+                    }
+                    return true;
+                });
+                if (currentItems.length !== updatedItems.length) {
+                    toast(
+                        `Your cart changed, ${
+                            currentItems.length - updatedItems.length
+                        } item(s) was removed!`,
+                        { icon: "🛒" }
+                    );
+                    return false;
+                }
+                set({ items: updatedItems });
+                return true;
+            },
+            removeItemByProductId: (productId: string) => {
+                const currentItems = get().items;
+                set({
+                    items: currentItems.filter(
+                        (item) => item.product.id !== productId
+                    ),
+                });
+            },
             removeItem: (
                 productId: string,
                 colorId: string,
@@ -102,9 +167,7 @@ const useCart = create(
                         item.color.id === colorId
                 );
                 set({
-                    items: currentItems.filter(
-                        (item) => item !== itemToRemove
-                    ),
+                    items: currentItems.filter((item) => item !== itemToRemove),
                 });
                 toast("Item removed from cart", { icon: "🗑️" });
             },

@@ -45,6 +45,12 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
         redirect("/");
     }
 
+    const backendUrl = process.env.PUBLIC_STORE_URL;
+
+    if (!backendUrl) {
+        throw new Error("Backend URL is not defined");
+    }
+
     const product = await getProduct(params.productId);
     const category = await getCategory(product.category.id);
 
@@ -74,6 +80,7 @@ const ProductPage: React.FC<ProductPageProps> = async ({ params }) => {
                             {/* Info */}
                             <Info
                                 data={product}
+                                backendUrl={backendUrl}
                             />
                         </div>
                     </div>

@@ -59,6 +59,12 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
     const colors = await getColors();
     const category = await getCategory(params.categoryId);
 
+    const backendUrl = process.env.PUBLIC_STORE_URL;
+
+    if (!backendUrl) {
+        throw new Error("Backend URL is not defined");
+    }
+
     return (
         <div className="mb-10">
             <Container>
@@ -90,6 +96,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                                     <ProductCard
                                         key={product.id}
                                         data={product}
+                                        backendUrl={backendUrl}
                                     />
                                 ))}
                             </div>

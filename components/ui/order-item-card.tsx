@@ -43,7 +43,7 @@ const OrderItemCard: React.FC<OrderItemCardProps> = ({ data }) => {
                     <div className="flex gap-x-2 items-center ">
                         <p>{data.color.name}</p>
                         <div
-                            className="h-4 w-4 rounded-full"
+                            className="h-4 w-4 rounded-full border border-neutral-600"
                             style={{ backgroundColor: data.color.value }}
                         ></div>
                     </div>
