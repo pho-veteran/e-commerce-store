@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VStore — E-Commerce Storefront
 
-## Getting Started
+A full-featured online shopping storefront built with Next.js, integrated with a headless backend API and VNPay payment gateway.
 
-First, run the development server:
+**Live Demo:** [vstore-sigma.vercel.app](https://vstore-sigma.vercel.app)
+
+> Academic project developed by a university student for learning and demonstration purposes.
+
+---
+
+## Description
+
+VStore is a customer-facing e-commerce web application that allows users to browse products by category, manage a shopping cart and wishlist, and complete purchases through a secure checkout flow. It solves the problem of building a production-ready storefront by connecting to a separate headless admin/backend API for product and order data. The system supports Vietnamese address input and VNPay as the payment provider.
+
+---
+
+## Tech Stack
+
+**Frontend**
+- [Next.js 14](https://nextjs.org) (App Router, Server Components)
+- React 18, TypeScript
+- Tailwind CSS, Radix UI (shadcn/ui component library)
+
+**Authentication**
+- [Clerk](https://clerk.com) — user sign-in/sign-up and route protection
+
+**Database**
+- MongoDB via [Prisma ORM](https://www.prisma.io) (used for storing user addresses)
+
+**State Management**
+- [Zustand](https://zustand-demo.pmnd.rs) — cart, wishlist, and modal state
+
+**Forms & Validation**
+- React Hook Form + Zod
+
+**Payment**
+- [VNPay](https://vnpay.vn) payment gateway
+
+**Other**
+- Axios — API requests
+- `idb-keyval` — IndexedDB persistence for cart/wishlist
+- `react-hot-toast` — notifications
+- `react-share` — social sharing
+
+---
+
+## Features
+
+- Browse products by category with filtering by color, size, and price range
+- Product detail page with image gallery and variant selection (color, size)
+- Shopping cart with persistent local storage
+- Wishlist with persistent local storage
+- Secure checkout protected by authentication
+- Address book management (add, edit, set default)
+- VNPay payment integration with order result page
+- Order history and order tracking in the account dashboard
+
+---
+
+## Installation
 
 ```bash
+# 1. Clone the repository
+git clone https://github.com/pho-veteran/e-commerce-store.git
+cd e-commerce-store
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment variables
+# Create a .env file and fill in the required values:
+#   DATABASE_URL                        — MongoDB connection string
+#   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY   — Clerk publishable key
+#   CLERK_SECRET_KEY                    — Clerk secret key
+#   PUBLIC_STORE_URL                    — URL of the backend/admin API
+
+# 4. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
 
-## Learn More
+```
+app/               # Next.js App Router — pages and API routes
+  (routes)/        # Public storefront routes (home, category, product, cart, etc.)
+  checkout/        # Checkout flow (address selection, payment, result)
+  api/             # Internal API routes (addresses, provinces, payment)
+actions/           # Server-side data fetching functions (products, categories, orders)
+components/        # Reusable UI components
+  ui/              # Low-level UI primitives (buttons, inputs, cards, etc.)
+  modals/          # Dialog modals (address, confirm, product preview)
+  form/            # Form components with validation schemas
+hooks/             # Zustand stores (cart, wishlist, modals)
+lib/               # Prisma client and utility helpers
+prisma/            # Prisma schema (MongoDB — Address model)
+providers/         # App-level providers (toast, modals)
+public/            # Static assets (province/district/ward data for VN addresses)
+```
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Author
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Developed by **pho-veteran** as a university student project.  
+GitHub: [github.com/pho-veteran](https://github.com/pho-veteran)
