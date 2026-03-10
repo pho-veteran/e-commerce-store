@@ -1,6 +1,6 @@
 # VStore — E-Commerce Storefront
 
-A full-featured online shopping storefront built with Next.js, integrated with a headless backend API and VNPay payment gateway.
+A full-featured online shopping storefront built with Next.js, integrated with a backend API and VNPay payment gateway.
 
 **Live Demo:** [vstore-sigma.vercel.app](https://vstore-sigma.vercel.app)
 
@@ -10,7 +10,7 @@ A full-featured online shopping storefront built with Next.js, integrated with a
 
 ## Description
 
-VStore is a customer-facing e-commerce web application that allows users to browse products by category, manage a shopping cart and wishlist, and complete purchases through a secure checkout flow. It solves the problem of building a production-ready storefront by connecting to a separate headless admin/backend API for product and order data. The system supports Vietnamese address input and VNPay as the payment provider.
+VStore is a customer-facing e-commerce web application that allows users to browse products by category, manage a shopping cart and wishlist, and complete purchases through a secure checkout flow. It solves the problem of building a production-ready storefront by connecting to a separate admin/backend API for product and order data. The system supports Vietnamese address input and VNPay as the payment provider.
 
 ---
 
